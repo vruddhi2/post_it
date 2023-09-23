@@ -3,30 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
     <link rel="stylesheet" href="/project/public/stylesheets/styles1.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form method="post">
             <h1>Creating User</h1>
             <div class="input-box">
     
-                <input type="text" placeholder="enter your username" required>
+                <input id="name" type="text" placeholder="enter your username" name="name" required>
                 
             </div>
             <div class="input-box">
     
-                <input type="text" placeholder="enter your email" required>
+                <input id="email" type="text" placeholder="enter your email" name="email" required>
+                <div class="email error "></div>
                 
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password please" required>
-                
+                <input id="password" type="password" placeholder="Password please" name="password" required>
+                <div class="password error"></div>
             </div>
         </form>
     <button type="submit" class="btn">Register</button>
     </div>
 </body>
+
+<script>
+    const form = document.querySelector('form');
+
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        emailError.textcontent = '';
+        passwordError.textContent = '';
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const res = await fetch('/user/register', {
+                method: 'POST',
+                body: JSON.stringify({ name: name, email: email, password: password}),
+                headers: { 'content-Type': 'application/json'}
+            });
+            const data = await res.json();
+
+            if(data.errors) {
+                emailError.textcontent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            }
+
+            if(data.user) {
+                location.assign('/');
+            }
+
+        } catch(err) {
+            console.error(err);
+        }
+    })
+</script>
+
 </html>
