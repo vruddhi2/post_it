@@ -3,51 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/project/public/stylesheets/styles1.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Register</title>
+    <!-- <link rel="stylesheet" href="/project/public/stylesheets/styles1.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"> -->
 </head>
 <body>
     <div class="wrapper">
         <form method="post">
-            <h1>Login</h1>
+            <h1>Creating User</h1>
             <div class="input-box">
-                <i class='bx bxs-user'></i>
-                <input id="email" type="text" placeholder="email" name="email" required>
-                <div class="email error"></div>
+    
+                <input id="name" type="text" placeholder="enter your username" name="name" required>
+                
+            </div>
+            <div class="input-box">
+    
+                <input id="email" type="text" placeholder="enter your email" name="email" required>
+                <div class="email error "></div>
+                
             </div>
             <div class="input-box">
                 <input id="password" type="password" placeholder="Password please" name="password" required>
-                <i class='bx bxs-lock-alt' ></i>
                 <div class="password error"></div>
             </div>
+            <button type="submit" class="btn">Register</button>
         </form>
-    <button type="submit" class="btn">LOGIN</button>
-    <div class="register-link">
-        <p>Dont have an account? <a href="/user/register">Register</a></p>
-    </div>
     </div>
 </body>
 
-
 <script>
     const form = document.querySelector('form');
+    
     const emailError = document.querySelector('.email.error');
     const passwordError = document.querySelector('.password.error');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         emailError.textContent = '';
         passwordError.textContent = '';
-        
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
 
         try {
-            const res = await fetch('/user/login', {
+            const res = await fetch('/user/register', {
                 method: 'POST',
-                body: JSON.stringify({ email: email, password: password}),
+                body: JSON.stringify({ name: name, email: email, password: password}),
                 headers: { 'content-Type': 'application/json'}
             });
             const data = await res.json();
@@ -58,14 +59,13 @@
             }
 
             if(data.user) {
-                location.assign('/');
+                //location.assign('/');
             }
 
         } catch(err) {
-            console.log(err);
+            console.error(err);
         }
     })
 </script>
-
 
 </html>
