@@ -46,15 +46,16 @@ const createToken = (id) => {
 
 
 router.get( '/register' , (req, res) => {
-    res.sendFile('register.html', {root: 'project-server/views'});
+    res.render('register')
 });
 
 router.get( '/login', (req, res) => {
-    res.sendFile('login.html', {root: 'project-server/views'});
+    res.render('login')
 });
 
 router.post ( '/register' , async (req, res) => {
     const {name, email, password} = req.body;  
+    console.log(req.body)
     try {
         const user = await User.create({ name: name, email: email, password: password });
         const token = createToken(user._id);
