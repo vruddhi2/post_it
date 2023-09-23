@@ -11,7 +11,7 @@ body{
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url('/project/public/images/img.jpg');
+  background: url('/images/img.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -36,8 +36,8 @@ body{
 }
 .input-box {
   position: relative;
-  display: flex; /* Use flexbox to align items horizontally */
-  align-items: center; /* Vertically center the icon and input */
+  display: flex; 
+  align-items: center; 
   margin: 30px 0;
 }
 .input-box input{
