@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/project/public/stylesheets/styles1.css">
+    <link rel="stylesheet" href="/stylesheets/styles1.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
@@ -36,6 +36,8 @@
     const emailError = document.querySelector('.email.error');
     const passwordError = document.querySelector('.password.error');
 
+
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -53,9 +55,9 @@
             });
             const data = await res.json();
 
-            if(data.errors) {
-                emailError.textContent = data.errors.email;
-                passwordError.textContent = data.errors.password;
+            if(data) {
+                emailError.textContent = data.email;
+                passwordError.textContent = data.password;
             }
 
             if(data.user) {
@@ -63,10 +65,8 @@
             }
 
         } catch(err) {
-            console.log(err);
+            console.log(res);
         }
     })
 </script>
-
-
 </html>

@@ -14,11 +14,11 @@ const handleErrors = (err) =>{
     console.log(err.message, err.code);
     let errors = { email: '', password: ''};
 
-    if(err.message === 'incorrect email') {
+    if(err.message === 'Incorrect Email') {
         errors.email = 'this email is not registered';
     }
 
-    if(err.message === 'incorrect password') {
+    if(err.message === 'Incorrect Password') {
         errors.email = 'this password is incorrect';
     }
 
@@ -53,7 +53,7 @@ router.get( '/login', (req, res) => {
     res.render('login')
 });
 
-router.post ( '/register' , async (req, res) => {
+router.post ( '/register' , async (req, res) => { 
     const {name, email, password} = req.body;  
     console.log(req.body)
     try {
@@ -63,6 +63,7 @@ router.post ( '/register' , async (req, res) => {
         res.status(200).json({user: user._id});
 
     } catch(err) {
+        
         const errors = handleErrors(err);
         res.status(400).json(errors);
     }
@@ -82,6 +83,12 @@ router.post('/login', async (req, res) => {
         res.status(400).json(errors);
     }
 });
+
+// logout
+router.get('/logout',(req, res)=>{
+    res.clearCookie("jwt");
+    res.redirect('user/login');
+})
 
 
 
