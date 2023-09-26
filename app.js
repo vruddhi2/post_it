@@ -24,4 +24,4 @@ app.set('view engine', 'ejs');
 app.use('/', requireAuth, indexRouter);
 app.use('/user', userRouter);
 
-module.exports = app;
+app.listen(8000, ()=>{});
